@@ -1,5 +1,5 @@
 package Statistics::WeightedSelection;
-$Statistics::WeightedSelection::VERSION = '0.001';
+$Statistics::WeightedSelection::VERSION = '0.002';
 use strict;
 use warnings;
 use Carp qw/croak cluck/;
@@ -26,7 +26,7 @@ sub add {
     my $object = $args{object};
 
     # an optional id, which can be used for later removal from pool
-    my $id = $args{id} // (ref $object ? freeze($object) : $object);
+    my $id = defined $args{id} ? $args{id} : (ref $object ? freeze($object) : $object);
 
     unless ($weight && $object) {
         croak 'Calls to ' . __PACKAGE__ . "::add() must include an arg named 'object'"
@@ -297,7 +297,7 @@ C<Statistics::WeightedSelection> - Select a random object according to its weigh
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SYNOPSIS
 
